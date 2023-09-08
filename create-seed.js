@@ -54,7 +54,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
     const listTitle = escapeQuotes(list.title);
     const listDescription = escapeQuotes(list.description);
 
-    entityInsertStatements.push(`INSERT INTO List (id, title, description) VALUES (${listId}, ${listTitle}, ${listDescription});`);
+    entityInsertStatements.push(`INSERT INTO Udemy.List (id, title, description) VALUES (${listId}, ${listTitle}, ${listDescription});`);
 
     // Generate SQL insert statements for the "Course" table and relationships
     list.courses.forEach((course) => {
@@ -65,7 +65,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
        * N.B. Perform this join insert BEFORE course id uniqueness check (which is used downstream
        * for entity `Course` and related joins Course_<...>), because in general 1 course : M lists
        */
-      joinInsertStatements.push(`INSERT INTO Course_List (course_id, list_id) VALUES (${courseId}, ${listId});`);
+      joinInsertStatements.push(`INSERT INTO Udemy.Course_List (course_id, list_id) VALUES (${courseId}, ${listId});`);
 
       // Ensure course id is unique
       if (courseIds.has(courseId)) {
@@ -101,7 +101,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
       const isPublished = course.is_published;
 
       // Generate SQL insert statement for the "Course" entity
-      entityInsertStatements.push(`INSERT INTO Course (id, title, url, is_paid, image_240x135, is_practice_test_course, image_480x270, published_title, tracking_id, headline, num_subscribers, avg_rating, num_reviews, favorite_time, archive_time, completion_ratio, num_quizzes, num_lectures, is_private, status_label, created, estimated_content_length, buyable_object_type, last_accessed_time, enrollment_time, last_update_date, is_published) VALUES (${courseId}, ${courseTitle}, ${courseUrl}, ${isPaid}, ${image240x135}, ${isPracticeTestCourse}, ${image480x270}, ${publishedTitle}, ${trackingId}, ${headline}, ${numSubscribers}, ${avgRating}, ${numReviews}, ${favoriteTime}, ${archiveTime}, ${completionRatio}, ${numQuizzes}, ${numLectures}, ${isPrivate}, ${statusLabel}, ${created}, ${estimatedContentLength}, ${buyableObjectType}, ${lastAccessedTime}, ${enrollmentTime}, ${lastUpdateDate}, ${isPublished});`);
+      entityInsertStatements.push(`INSERT INTO Udemy.Course (id, title, url, is_paid, image_240x135, is_practice_test_course, image_480x270, published_title, tracking_id, headline, num_subscribers, avg_rating, num_reviews, favorite_time, archive_time, completion_ratio, num_quizzes, num_lectures, is_private, status_label, created, estimated_content_length, buyable_object_type, last_accessed_time, enrollment_time, last_update_date, is_published) VALUES (${courseId}, ${courseTitle}, ${courseUrl}, ${isPaid}, ${image240x135}, ${isPracticeTestCourse}, ${image480x270}, ${publishedTitle}, ${trackingId}, ${headline}, ${numSubscribers}, ${avgRating}, ${numReviews}, ${favoriteTime}, ${archiveTime}, ${completionRatio}, ${numQuizzes}, ${numLectures}, ${isPrivate}, ${statusLabel}, ${created}, ${estimatedContentLength}, ${buyableObjectType}, ${lastAccessedTime}, ${enrollmentTime}, ${lastUpdateDate}, ${isPublished});`);
 
       // Generate SQL insert statements for the "Instructor" table and relationships
       course.visible_instructors.forEach((instructor) => {
@@ -112,7 +112,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
          * N.B. Perform this join insert BEFORE instructor id uniqueness check (which is used downstream
          * for entity `Instructor`), because in general 1 course : M instructors
          */
-        joinInsertStatements.push(`INSERT INTO Course_Instructor (course_id, instructor_id) VALUES (${courseId}, ${instructorId});`);
+        joinInsertStatements.push(`INSERT INTO Udemy.Course_Instructor (course_id, instructor_id) VALUES (${courseId}, ${instructorId});`);
 
         // Ensure instructor id is unique
         if (instructorIds.has(instructorId)) {
@@ -129,7 +129,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
         const instructorUrl = escapeQuotes(instructor.url);
 
         // Generate SQL insert statement for the "Instructor" entity
-        entityInsertStatements.push(`INSERT INTO Instructor (id, name, display_name, job_title, image_50x50, image_100x100, initials, url) VALUES (${instructorId}, ${instructorName}, ${instructorDisplayName}, ${jobTitle}, ${image50x50}, ${image100x100}, ${initials}, ${instructorUrl});`);
+        entityInsertStatements.push(`INSERT INTO Udemy.Instructor (id, name, display_name, job_title, image_50x50, image_100x100, initials, url) VALUES (${instructorId}, ${instructorName}, ${instructorDisplayName}, ${jobTitle}, ${image50x50}, ${image100x100}, ${initials}, ${instructorUrl});`);
       });
 
       // Generate SQL insert statements for the "Category" table and relationships
@@ -140,7 +140,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
       const primarySubcategoryId = primarySubcategory?.id;
 
       if (primaryCategoryId) {
-        joinInsertStatements.push(`INSERT INTO Course_Category (course_id, category_id) VALUES (${courseId}, ${primaryCategoryId});`);
+        joinInsertStatements.push(`INSERT INTO Udemy.Course_Category (course_id, category_id) VALUES (${courseId}, ${primaryCategoryId});`);
       }
 
       // Ensure category id is unique
@@ -148,11 +148,11 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
         categoryIds.add(primaryCategoryId);
 
         // Generate SQL insert statements for the "Category" entity
-        entityInsertStatements.push(`INSERT INTO Category (id, title, title_cleaned, url, icon_class) VALUES (${primaryCategoryId}, ${escapeQuotes(primaryCategory.title)}, ${escapeQuotes(primaryCategory.title_cleaned)}, ${escapeQuotes(primaryCategory.url)}, ${escapeQuotes(primaryCategory.icon_class)});`);
+        entityInsertStatements.push(`INSERT INTO Udemy.Category (id, title, title_cleaned, url, icon_class) VALUES (${primaryCategoryId}, ${escapeQuotes(primaryCategory.title)}, ${escapeQuotes(primaryCategory.title_cleaned)}, ${escapeQuotes(primaryCategory.url)}, ${escapeQuotes(primaryCategory.icon_class)});`);
       }
 
       if (primarySubcategoryId) {
-        joinInsertStatements.push(`INSERT INTO Course_Subcategory (course_id, subcategory_id) VALUES (${courseId}, ${primarySubcategoryId});`);
+        joinInsertStatements.push(`INSERT INTO Udemy.Course_Subcategory (course_id, subcategory_id) VALUES (${courseId}, ${primarySubcategoryId});`);
       }
 
       // Ensure subcategory id is unique
@@ -160,7 +160,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
         subcategoryIds.add(primarySubcategoryId);
 
         // Generate SQL insert statements for the "Subcategory" entity
-        entityInsertStatements.push(`INSERT INTO Subcategory (id, title, title_cleaned, url, icon_class) VALUES (${primarySubcategoryId}, ${escapeQuotes(primarySubcategory.title)}, ${escapeQuotes(primarySubcategory.title_cleaned)}, ${escapeQuotes(primarySubcategory.url)}, ${escapeQuotes(primarySubcategory.icon_class)});`);
+        entityInsertStatements.push(`INSERT INTO Udemy.Subcategory (id, title, title_cleaned, url, icon_class) VALUES (${primarySubcategoryId}, ${escapeQuotes(primarySubcategory.title)}, ${escapeQuotes(primarySubcategory.title_cleaned)}, ${escapeQuotes(primarySubcategory.url)}, ${escapeQuotes(primarySubcategory.icon_class)});`);
       }
 
       // Generate SQL insert statements for the "Topic" table and relationships
@@ -170,7 +170,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
 
       // Generate SQL insert statement for the "Course_Topic" join table (label)
       if (catTopicId) {
-        joinInsertStatements.push(`INSERT INTO Course_Topic (course_id, topic_id) VALUES (${courseId}, ${contextInfo.label.id});`);
+        joinInsertStatements.push(`INSERT INTO Udemy.Course_Topic (course_id, topic_id) VALUES (${courseId}, ${contextInfo.label.id});`);
       }
 
       // Ensure topic id (via category) is unique
@@ -181,13 +181,13 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
           const { label: { id, title, url } } = contextInfo;
 
           // Generate SQL insert statement for the "Topic" entity (label)
-          entityInsertStatements.push(`INSERT INTO Topic (id, title, url) VALUES (${id}, ${escapeQuotes(title)}, ${escapeQuotes(url)});`);
+          entityInsertStatements.push(`INSERT INTO Udemy.Topic (id, title, url) VALUES (${id}, ${escapeQuotes(title)}, ${escapeQuotes(url)});`);
         }
       }
 
       // Generate SQL insert statement for the "Course_Topic" join table (subcategory)
       if (subCatTopicId) {
-        joinInsertStatements.push(`INSERT INTO Course_Topic (course_id, topic_id) VALUES (${courseId}, ${contextInfo.subcategory.id});`);
+        joinInsertStatements.push(`INSERT INTO Udemy.Course_Topic (course_id, topic_id) VALUES (${courseId}, ${contextInfo.subcategory.id});`);
       }
 
       // Ensure topic id (via subcategory) is unique
@@ -198,7 +198,7 @@ fs.readFile(jsonFile, 'utf8', (err, data) => {
           const { subcategory: { id, title, url } } = contextInfo;
 
           // Generate SQL insert statement for the "Topic" entity (subcategory)
-          entityInsertStatements.push(`INSERT INTO Topic (id, title, url) VALUES (${id}, ${escapeQuotes(title)}, ${escapeQuotes(url)});`);
+          entityInsertStatements.push(`INSERT INTO Udemy.Topic (id, title, url) VALUES (${id}, ${escapeQuotes(title)}, ${escapeQuotes(url)});`);
         }
       }
     });

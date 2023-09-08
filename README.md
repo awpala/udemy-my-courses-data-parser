@@ -96,6 +96,8 @@ Furthermore, as this message suggests, this creates a new file `seed_data_<times
 With the tables populated, this provides a useful "bird's eye" view of your courses (i.e., relative to more-tedious browser-/UI-based navigation to discern the same data), along with enhanced querying capabilities, e.g.,:
 
 ```sql
+SET search_path TO udemy; -- use schema `udemy`
+
 SELECT 
   ARRAY_AGG(DISTINCT list.title ORDER BY list.title) AS "lists",
   course.title AS "course",
