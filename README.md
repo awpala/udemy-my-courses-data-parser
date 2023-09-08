@@ -128,7 +128,7 @@ This resulting payload has the following **general form**:
           "url": <string>,
           "icon_class": <string>,
           "type": "category",
-          "channel_id": <number | null>,
+          "channel_id": null,
           "_class": "course_category"
         },
         "primary_subcategory": {
@@ -138,7 +138,7 @@ This resulting payload has the following **general form**:
           "url": <string>,
           "icon_class": <string>,
           "type": "subcategory",
-          "channel_id": <number | null>,
+          "channel_id": null,
           "_class": "course_subcategory"
         },
         "created": <string>,
