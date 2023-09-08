@@ -98,12 +98,12 @@ With the tables populated, this provides a useful "bird's eye" view of your cour
 ```sql
 SELECT 
   ARRAY_AGG(DISTINCT list.title ORDER BY list.title) AS "lists",
-	course.title AS "course",
-	ARRAY_AGG(DISTINCT instructor.display_name ORDER BY instructor.display_name) AS "instructors",
-	ROUND(course.estimated_content_length / 60.0, 2) AS "length (hrs)",
+  course.title AS "course",
+  ARRAY_AGG(DISTINCT instructor.display_name ORDER BY instructor.display_name) AS "instructors",
+  ROUND(course.estimated_content_length / 60.0, 2) AS "length (hrs)",
   category.title AS "category",
   subcategory.title AS "subcategory",
-	topic.title AS "topic"
+  topic.title AS "topic"
 FROM course
 LEFT JOIN course_list ON course_list.course_id = course.id
 LEFT JOIN course_category ON course_category.course_id = course.id
