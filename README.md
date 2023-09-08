@@ -57,21 +57,21 @@ where `<timestamp>` is the corresponding [Unix timestamp](https://www.unixtimest
 
 If desired, the resulting JSON payload from the previous step can be transformed to SQL tables for additional querying, transformation, etc.
 
-To do this, connect to a live Postgres server instance, and create tables using the script provided in `create_tables.sql`. This will define tables as follows:
+To do this, connect to a live Postgres server instance, and create tables using the script provided in `create_tables.sql`. This will define tables as follows (under schema `student`):
 
-| Table Name | Entity or Join Table Type|
+| Schema-Qualified Table Name | Entity or Join Table Type|
 |:--:|:--:|
-| `list` | entity |
-| `course` | entity |
-| `instructor` | entity |
-| `category` | entity |
-| `subcategory` | entity |
-| `topic` | entity |
-| `course_list` | join |
-| `course_instructor` | join |
-| `course_category` | join |
-| `course_subcategory` | join | 
-| `course_topic` | join |
+| `student.list` | entity |
+| `student.course` | entity |
+| `student.instructor` | entity |
+| `student.category` | entity |
+| `student.subcategory` | entity |
+| `student.topic` | entity |
+| `student.course_list` | join |
+| `student.course_instructor` | join |
+| `student.course_category` | join |
+| `student.course_subcategory` | join | 
+| `student.course_topic` | join |
 
 ***N.B.*** In general, there is a many-to-many relationship between `course` and the other entities, which in turn is captured via the respective `course_<...>` join tables accordingly.
 
