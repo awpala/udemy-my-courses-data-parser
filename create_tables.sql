@@ -1,16 +1,16 @@
 -- Create schema
 
-CREATE SCHEMA Udemy;
+CREATE SCHEMA Student;
 
 -- Create entities tables
 
-CREATE TABLE Udemy.List (
+CREATE TABLE Student.List (
   id INT PRIMARY KEY,
   title VARCHAR(255),
   description TEXT
 );
 
-CREATE TABLE Udemy.Course (
+CREATE TABLE Student.Course (
   id INT PRIMARY KEY,
   title VARCHAR(255),
   url TEXT,
@@ -40,7 +40,7 @@ CREATE TABLE Udemy.Course (
   is_published BOOLEAN
 );
 
-CREATE TABLE Udemy.Instructor (
+CREATE TABLE Student.Instructor (
   id INT PRIMARY KEY,
   name VARCHAR(255),
   display_name VARCHAR(255),
@@ -51,7 +51,7 @@ CREATE TABLE Udemy.Instructor (
   url TEXT
 );
 
-CREATE TABLE Udemy.Category (
+CREATE TABLE Student.Category (
   id INT PRIMARY KEY,
   title VARCHAR(255),
   title_cleaned VARCHAR(255),
@@ -59,7 +59,7 @@ CREATE TABLE Udemy.Category (
   icon_class VARCHAR(255)
 );
 
-CREATE TABLE Udemy.Subcategory (
+CREATE TABLE Student.Subcategory (
   id INT PRIMARY KEY,
   title VARCHAR(255),
   title_cleaned VARCHAR(255),
@@ -67,7 +67,7 @@ CREATE TABLE Udemy.Subcategory (
   icon_class VARCHAR(255)
 );
 
-CREATE TABLE Udemy.Topic (
+CREATE TABLE Student.Topic (
   id INT PRIMARY KEY,
   title VARCHAR(255),
   url TEXT
@@ -75,32 +75,32 @@ CREATE TABLE Udemy.Topic (
 
 -- Create joins tables
 
-CREATE TABLE Udemy.Course_List (
-  course_id INT REFERENCES Udemy.Course(id),
-  list_id INT REFERENCES Udemy.List(id),
+CREATE TABLE Student.Course_List (
+  course_id INT REFERENCES Student.Course(id),
+  list_id INT REFERENCES Student.List(id),
   PRIMARY KEY (course_id, list_id)
 );
 
-CREATE TABLE Udemy.Course_Instructor (
-  course_id INT REFERENCES Udemy.Course(id),
-  instructor_id INT REFERENCES Udemy.Instructor(id),
+CREATE TABLE Student.Course_Instructor (
+  course_id INT REFERENCES Student.Course(id),
+  instructor_id INT REFERENCES Student.Instructor(id),
   PRIMARY KEY (course_id, instructor_id)
 );
 
-CREATE TABLE Udemy.Course_Category (
-  course_id INT REFERENCES Udemy.Course(id),
-  category_id INT REFERENCES Udemy.Category(id),
+CREATE TABLE Student.Course_Category (
+  course_id INT REFERENCES Student.Course(id),
+  category_id INT REFERENCES Student.Category(id),
   PRIMARY KEY (course_id, category_id)
 );
 
-CREATE TABLE Udemy.Course_Subcategory (
-  course_id INT REFERENCES Udemy.Course(id),
-  subcategory_id INT REFERENCES Udemy.Subcategory(id),
+CREATE TABLE Student.Course_Subcategory (
+  course_id INT REFERENCES Student.Course(id),
+  subcategory_id INT REFERENCES Student.Subcategory(id),
   PRIMARY KEY (course_id, subcategory_id)
 );
 
-CREATE TABLE Udemy.Course_Topic (
-  course_id INT REFERENCES Udemy.Course(id),
-  topic_id INT REFERENCES Udemy.Topic(id),
+CREATE TABLE Student.Course_Topic (
+  course_id INT REFERENCES Student.Course(id),
+  topic_id INT REFERENCES Student.Topic(id),
   PRIMARY KEY (course_id, topic_id)
 );
