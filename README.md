@@ -2,16 +2,16 @@
 
 ## Overview
 
-A semi-automated, scripts-based approach to downloading courses data for an authenticated Udemy user account.
+A semi-automated, scripts-based approach for downloading courses data for an authenticated [Udemy](https://www.udemy.com) user account.
 
 ## Prereqs
 
-Intended for Unix-based systems (drafted on Ubuntu 22.04). Additional external dependencies are as follows:
+Intended for running/use on Unix-based systems (drafted on Ubuntu 22.04). Additional external dependencies are as follows:
   * [`jq`](https://jqlang.github.io/jq/) command-line utility for JSON parsing
   * (***optional***) Node.js v.16+
   * (***optional***) Postgres v.13+
 
-***N.B.*** ***optional*** dependencies only required for JSON to SQL conversion.
+***N.B.*** ***optional*** dependencies only required for JSON to SQL conversion. See corresponding steps `2` and `3` in the next section.
 
 ## Steps for Use
 
@@ -19,7 +19,7 @@ Intended for Unix-based systems (drafted on Ubuntu 22.04). Additional external d
 
 ### 1. Authentication
 
-To download the JSON payload containing the lists and courses data, first you must authenticate into your Udemy user account. Do this most simply via the [Udemy website](https://www.udemy.com) itself.
+To download the JSON payload containing the lists and courses data, first you must authenticate into your Udemy user account. To do this most simply, use the [Udemy website](https://www.udemy.com) itself and log in there.
 
 Once authenticated, retrieve your `access_token` via browser developer tools or equivalent. Using Google Chrome Developer Tools as a representative example, this can be accomplished as follows:
 
@@ -27,11 +27,11 @@ Once authenticated, retrieve your `access_token` via browser developer tools or 
 <img src="./assets/access-token.png">
 </center>
 
-***N.B.*** The `access_token` value is an alphanumeric string, approximately 40 total alphanumeric characters in length.
+***N.B.*** The `access_token` value is an alphanumeric string, approximately 40 total alphanumeric characters in length. Furthermore, note that this value is **sensitive** and should **NOT** be shared accordingly, as it provides **direct access** to your Udemy account!
 
 ### 2. Downloading Data as JSON
 
-To download all lists and their constituent courses as a flattened JSON array (i.e., of general form `[ { list1 }, { list2 }, ...]`), run the parsing script from the command line as follows:
+To download all lists and their constituent courses as a flattened JSON array (i.e., of general form `[ { list1 }, { list2 }, ...]`), run the corresponding parsing script from the command line as follows:
 
 ```bash
 ./udemy-list-parser.sh
@@ -39,7 +39,7 @@ To download all lists and their constituent courses as a flattened JSON array (i
 
 At the terminal prompt `Enter your Udemy account access token: `, provide the `access_token` value from the previous step and then press `ENTER` to run the script.
 
-***N.B.*** The script has dynamically set parameters, which can be adjusted accordingly to your preference. These are set here to run with relatively "slow delay" (ca. 8 +/- 0.25 s, going by page size `1` and page count `1`) to ensure full data download and no corresponding prematurely canceled requests. Correspondingly, this may take a few minutes to run.
+***N.B.*** The script has dynamically set parameters, which can be adjusted accordingly to your preference. These are set here to run with relatively "slow delay" (ca. 8 ± 0.25 seconds, downloading/proceeding at a rate of page size `1` and page count `1`, where a page here corresponds to a single list) to ensure full data download and no corresponding prematurely canceled requests. Correspondingly, this may take a few minutes to run.
 
 On successful completion of the script, the following message will appear in the terminal:
 
@@ -69,7 +69,7 @@ To do this, connect to a live Postgres server instance, and create tables using 
 | `course_subcategory` | join | 
 | `course_topic` | join |
 
-***N.B.*** In general, there is a many-to-many relationship between `course` and the other entities, which in turn is captured via the respective join tables accordingly.
+***N.B.*** In general, there is a many-to-many relationship between `course` and the other entities, which in turn is captured via the respective `course_<...>` join tables accordingly.
 
 With the tables created, to create the seed data to populate the tables from the downloaded JSON payload in the previous step, run the generator script `create-seed.js` via Node.js from the command line as follows:
 
