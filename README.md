@@ -1,4 +1,4 @@
-# Parser for Udemy Account Courses List
+# Parser for Udemy Account Courses Lists
 
 ## Overview
 
