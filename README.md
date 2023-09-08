@@ -85,8 +85,7 @@ This resulting payload has the following **general form**:
             "initials": <string>,
             "url": <string>
           },
-          // list 1, course 1, instructor 2...N
-          ...
+          ... // list 1, course 1, instructor 2...N
         ],
         "image_240x135": <string>,
         "is_practice_test_course": <boolean>,
@@ -165,12 +164,10 @@ This resulting payload has the following **general form**:
           }
         }
       },
-      // list 1, course 2...N
-      ...
+      ... // list 1, course 2...N
     ],
   },
-  // list 2...N
-  ...
+  ... // list 2...N
 ]
 ```
 
