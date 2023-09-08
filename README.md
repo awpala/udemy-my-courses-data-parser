@@ -1,8 +1,12 @@
-# Parser for Udemy Account Courses Lists
+# Downloading Metadata for Udemy Student Account Courses Lists
 
 ## Overview
 
-A semi-automated, scripts-based approach for downloading courses data for an authenticated [Udemy](https://www.udemy.com) user account.
+A semi-automated, scripts-based approach for downloading courses metadata for an authenticated [Udemy](https://www.udemy.com) user account. Based on Udemy v.2.0 API.
+
+### Use Policy
+
+***Caution***: Use of this script and corresponding compliance with [Udemy's terms and related policies](https://www.udemy.com/terms/) are the **sole responsibility** of the user and corresponding Udemy account holder. This script is provided for ***personal use only***, and is primarily intended for data organization and/or for related pedagogical purposes (e.g., courses scheduling/planning). The author neither endorses nor encourages the use of these scripts for "abusive," counter-to-terms, or related purposes, and correspondingly claims **no** responsibility for any such misuses. ***Download responsibly***.
 
 ## Prereqs
 
