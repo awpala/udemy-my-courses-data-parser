@@ -53,6 +53,127 @@ Combined JSON data saved to udemy_lists_<timestamp>.json
 
 where `<timestamp>` is the corresponding [Unix timestamp](https://www.unixtimestamp.com/) taken on initial run of the script.
 
+This resulting payload has the following **general form**:
+
+```json
+[
+  // list 1
+  {
+    "id": <number>,
+    "title": <string>,
+    "description": <string>,
+    "list_id": <number>,
+    "courses": [
+      // list 1, course 1
+      {
+        "_class": "course",
+        "id": <number>,
+        "title": <string>,
+        "url": <string>,
+        "is_paid": <boolean>,
+        "visible_instructor": [
+          // list 1, course 1, instructor 1
+          {
+            "_class": "user",
+            "id": <number>,
+            "title": <string>,
+            "name": <string>,
+            "display_name": <string>,
+            "job_title": <string>,
+            "image_50x50": <string>,
+            "image_100x100": <string>,
+            "initials": <string>,
+            "url": <string>
+          },
+          // list 1, course 1, instructor 2...N
+          ...
+        ],
+        "image_240x135": <string>,
+        "is_practice_test_course": <boolean>,
+        "image_480x270": <string>,
+        "published_title": <string>,
+        "tracking_id": <string>,
+        "headline":  <string>,
+        "num_subscribers": <number>,
+        "avg_rating": <number>,
+        "num_reviews": <number>,
+        "favorite_time": <string | null>,
+        "archive_time": <string | null>,
+        "completion_ratio": <number>,
+        "num_quizzes": <number>,
+        "num_lectures": <number>,
+        "is_private": <boolean>,
+        "status_label": <string>,
+        "features": {
+          "_class": "course",
+          "discussions_create": <boolean>,
+          "discussions_view": <boolean>,
+          "discussions_replies_create": <boolean>,
+          "enroll": <boolean>,
+          "reviews_create": <boolean>,
+          "reviews_view": <boolean>,
+          "reviews_responses_create": <boolean>,
+          "announcements_comments_view": <boolean>,
+          "educational_announcements_create": <boolean>,
+          "promotional_announcements_create": <boolean>,
+          "promotions_create": <boolean>,
+          "promotions_view": <boolean>,
+          "students_view": <boolean>
+        },
+        "is_published": <boolean>,
+        "primary_category": {
+          "id": <number>,
+          "title": <string>,
+          "title_cleaned": <string>,
+          "url": <string>,
+          "icon_class": <string>,
+          "type": "category",
+          "channel_id": <number | null>,
+          "_class": "course_category"
+        },
+        "primary_subcategory": {
+          "id": <number>,
+          "title": <string>,
+          "title_cleaned": <string>,
+          "url": <string>,
+          "icon_class": <string>,
+          "type": "subcategory",
+          "channel_id": <number | null>,
+          "_class": "course_subcategory"
+        },
+        "created": <string>,
+        "estimated_content_length": <number>,
+        "buyable_object_type": "course",
+        "last_accessed_time": <string>,
+        "enrollment_time": <string>,
+        "last_update_date": <string>,
+        "context_info": {
+          "category": {
+            "id": <number>,
+            "title": <string>,
+            "url": <string>,
+            "tracking_object_type": "cat"
+          },
+          "subcategory": null,
+          "label": {
+            "id": <number>,
+            "display_name": <string>,
+            "title": <string>,
+            "topic_channel_url": <string>,
+            "url": <string>,
+            "tracking_object_type": "cl"
+          }
+        }
+      },
+      // list 1, course 2...N
+      ...
+    ],
+  },
+  // list 2...N
+  ...
+]
+```
+
 ### 3. (***Optional***) Transform JSON Payload to SQL Tables
 
 If desired, the resulting JSON payload from the previous step can be transformed to SQL tables for additional querying, transformation, etc.
