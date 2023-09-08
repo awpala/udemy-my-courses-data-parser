@@ -93,6 +93,33 @@ where `<timestamp>` is the corresponding [Unix timestamp](https://www.unixtimest
 
 Furthermore, as this message suggests, this creates a new file `seed_data_<timestamp>.sql` which provides the corresponding `INSERT ...` statements to populate the tables.
 
+With the tables populated, this provides a useful "bird's eye" view of your courses (i.e., relative to more-tedious browser-/UI-based navigation to discern the same data), along with enhanced querying capabilities, e.g.,:
+
+```sql
+SELECT 
+    ARRAY_AGG(DISTINCT list.title ORDER BY list.title) AS "lists",
+	course.title AS "course",
+	ARRAY_AGG(DISTINCT instructor.display_name ORDER BY instructor.display_name) AS "instructors",
+	ROUND(course.estimated_content_length / 60.0, 2) AS "length (hrs)",
+    category.title AS "category",
+    subcategory.title AS "subcategory",
+	topic.title AS "topic"
+FROM course
+LEFT JOIN course_list ON course_list.course_id = course.id
+LEFT JOIN course_category ON course_category.course_id = course.id
+LEFT JOIN course_subcategory ON course_subcategory.course_id = course.id
+LEFT JOIN course_topic ON course_topic.course_id = course.id
+LEFT JOIN list ON course_list.list_id = list.id
+LEFT JOIN category ON course_category.category_id = category.id
+LEFT JOIN subcategory ON course_subcategory.subcategory_id = subcategory.id
+LEFT JOIN topic ON course_topic.topic_id = topic.id
+LEFT JOIN course_instructor ON course_instructor.course_id = course.id
+LEFT JOIN instructor ON course_instructor.instructor_id = instructor.id
+GROUP BY course.title, course.estimated_content_length, topic.title, category.title, subcategory.title
+ORDER BY "lists", "category", "instructors", "subcategory", course.title
+;
+```
+
 ### 4. Updating the Data
 
 To repeat this process (i.e., to update the existing data with new/live data from Udemy), re-run the script in step `2` for regenerating the JSON payload. Furthermore, to reseed the database data, run the script in `truncate_tables.sql`, and then repeat step `3`. 
