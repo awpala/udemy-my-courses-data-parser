@@ -175,7 +175,7 @@ This resulting payload has the following **general form**:
 
 If desired, the resulting JSON payload from the previous step can be transformed to SQL tables for additional querying, transformation, etc.
 
-To do this, connect to a live Postgres server instance, and create tables using the script provided in `create_tables.sql`. This will define tables as follows (under schema `student`):
+To do this, connect to a live Postgres server instance, create a new database (or simply use default database `postgres` or equivalent if not specified otherwise), and then create tables using the script provided in `create_tables.sql`. This will define tables as follows (under schema `student`):
 
 | Schema-Qualified Table Name | Entity or Join Table Type|
 |:--:|:--:|
