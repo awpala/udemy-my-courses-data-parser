@@ -107,7 +107,7 @@ while [ "$page_url" != "null" ]; do
   fetch_results
 done
 
-# Save the combined JSON to the output file using jq to format it and sort by "title"
+# Save the combined JSON to the output file using jq to format it and sort by "title" (i.e., alphabetically by names of the courses lists)
 echo "${all_results[@]}" | jq -s 'sort_by(.title)' > "$output_file"
 
 echo "Combined JSON data saved to $output_file"
