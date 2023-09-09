@@ -2,7 +2,7 @@
 
 ## Overview
 
-A semi-automated, scripts-based approach for downloading courses metadata for an authenticated [Udemy](https://www.udemy.com) user account. Based on Udemy v.2.0 API.
+A semi-automated, scripts-based approach for downloading courses metadata for an authenticated [Udemy](https://www.udemy.com) user account. Based on Udemy v.2.0 API. Corresponding data is based on HTTP requests inferred from user-authenticated view `https://www.udemy.com/home/my-courses/lists/`.
 
 ### Use Policy
 
