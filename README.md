@@ -196,7 +196,7 @@ To do this, connect to a live Postgres server instance, and create tables using 
 The corresponding [ER diagram](https://dbdiagram.io/d/64fbb50802bd1c4a5e3d738e) is as follows:
 
 <center>
-<img src="./assets/er-diagram.svg">
+<img src="./assets/er-diagram.png">
 </center>
 
 With the tables created, to create the seed data to populate the tables from the downloaded JSON payload in the previous step, run the generator script `create-seed.js` via Node.js from the command line as follows:
