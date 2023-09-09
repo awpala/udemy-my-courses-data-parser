@@ -179,8 +179,8 @@ To do this, connect to a live Postgres server instance, and create tables using 
 
 | Schema-Qualified Table Name | Entity or Join Table Type|
 |:--:|:--:|
-| `student.list` | entity |
 | `student.course` | entity |
+| `student.list` | entity |
 | `student.instructor` | entity |
 | `student.category` | entity |
 | `student.subcategory` | entity |
