@@ -10,7 +10,7 @@ A semi-automated, scripts-based approach for downloading courses metadata for an
 
 ## Prereqs
 
-Intended for running/use on Unix-based systems (drafted on Ubuntu 22.04). Additional external dependencies are as follows:
+Intended for running/use on Unix-based systems (drafted on Ubuntu 22.04), or equivalent (e.g., [Git Bash](https://gitforwindows.org/), [WSL](https://aka.ms/wsl), etc. on Windows). Additional external dependencies are as follows:
   * [`jq`](https://jqlang.github.io/jq/) command-line utility for JSON parsing
   * (***optional***) Node.js v.16+
   * (***optional***) Postgres v.13+
