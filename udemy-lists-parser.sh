@@ -91,8 +91,11 @@ fetch_results() {
   results="$(echo "$json_data" | jq '.results[]')"
   all_results+=("$results")
 
-  # Get the next page URL or exit if no more pages
+  # Get the next page URL or set to "null" if no more pages
   page_url=$(echo "$json_data" | jq -r '.next')
+  if [ "$page_url" == "null" ]; then
+    return 1  # Indicate that there are no more pages
+  fi
 
   # Delay subsequent request, using `base_time + random_noise` to vary the between-requests delay time
   random_noise=$(generate_random_noise)
@@ -100,8 +103,11 @@ fetch_results() {
   sleep $(bc -l <<< "$base_time + $random_noise")
 }
 
-# Loop to fetch results and paginate until no more pages
-while [ "$page_url" != "null" ]; do
+# Fetch the first page of results
+fetch_results
+
+# Loop to fetch remaining results and paginate
+while [ $? -eq 0 ]; do
   ((page_num++))
   page_url=$(construct_page_url "$page_num")
   fetch_results
