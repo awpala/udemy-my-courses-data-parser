@@ -242,7 +242,7 @@ LEFT JOIN topic ON course_topic.topic_id = topic.id
 LEFT JOIN course_instructor ON course_instructor.course_id = course.id
 LEFT JOIN instructor ON course_instructor.instructor_id = instructor.id
 GROUP BY course.title, course.estimated_content_length, topic.title, category.title, subcategory.title
-ORDER BY "lists", "category", "instructors", "subcategory", course.title
+ORDER BY "lists", "category", "instructors", "subcategory", "course"
 ;
 ```
 
