@@ -104,3 +104,34 @@ CREATE TABLE Student.Course_Topic (
   topic_id INT REFERENCES Student.Topic(id),
   PRIMARY KEY (course_id, topic_id)
 );
+
+-- Create indexes for foreign keys
+
+CREATE INDEX idx_course_list_course_id ON Student.Course_List (course_id);
+CREATE INDEX idx_course_list_list_id ON Student.Course_List (list_id);
+
+CREATE INDEX idx_course_instructor_course_id ON Student.Course_Instructor (course_id);
+CREATE INDEX idx_course_instructor_instructor_id ON Student.Course_Instructor (instructor_id);
+
+CREATE INDEX idx_course_category_course_id ON Student.Course_Category (course_id);
+CREATE INDEX idx_course_category_category_id ON Student.Course_Category (category_id);
+
+CREATE INDEX idx_course_subcategory_course_id ON Student.Course_Subcategory (course_id);
+CREATE INDEX idx_course_subcategory_subcategory_id ON Student.Course_Subcategory (subcategory_id);
+
+CREATE INDEX idx_course_topic_course_id ON Student.Course_Topic (course_id);
+CREATE INDEX idx_course_topic_topic_id ON Student.Course_Topic (topic_id);
+
+-- Create indexes on field `title`
+
+CREATE INDEX idx_list_title ON Student.List (title);
+
+CREATE INDEX idx_course_title ON Student.Course (title);
+
+CREATE INDEX idx_instructor_name ON Student.Instructor (name);
+
+CREATE INDEX idx_category_title ON Student.Category (title);
+
+CREATE INDEX idx_subcategory_title ON Student.Subcategory (title);
+
+CREATE INDEX idx_topic_title ON Student.Topic (title);
