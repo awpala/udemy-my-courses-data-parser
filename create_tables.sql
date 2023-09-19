@@ -128,7 +128,7 @@ CREATE INDEX idx_list_title ON Student.List (title);
 
 CREATE INDEX idx_course_title ON Student.Course (title);
 
-CREATE INDEX idx_instructor_name ON Student.Instructor (name);
+CREATE INDEX idx_instructor_name ON Student.Instructor (display_name);
 
 CREATE INDEX idx_category_title ON Student.Category (title);
 
