@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // Check if a JSON file path is provided as a command-line argument
 if (process.argv.length !== 3) {
-  console.error('Usage: node parse-json.js <json_file_path>');
+  console.error('Usage: node create-seed.js <json_file_path>');
   process.exit(1); // Exit with an error code
 }
 
